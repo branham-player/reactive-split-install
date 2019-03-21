@@ -20,10 +20,13 @@ sealed class InstallationStatus {
     ) : InstallationStatus()
 
     object Installing : InstallationStatus()
+    object Pending : InstallationStatus()
 
     data class RequestAccepted(
         val taskSessionId: Int
     ) : InstallationStatus()
 
     object RequestCompleted : InstallationStatus()
+    object RequiresUserConfirmation : InstallationStatus()
+    object Unknown : InstallationStatus()
 }
