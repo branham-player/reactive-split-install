@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Reactive Split Installer Demo</string>
+
+    <!-- region Modules -->
+
+    <string name="module_base">Base Module</string>
+    <string name="module_feature1">Instant Dynamic Feature 1</string>
+
+    <!-- endregion -->
 </resources>
