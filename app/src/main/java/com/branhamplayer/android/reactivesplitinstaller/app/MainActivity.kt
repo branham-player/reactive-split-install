@@ -1,4 +1,4 @@
-package com.branhamplayer.android.app
+package com.branhamplayer.android.reactivesplitinstaller.app
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.branhamplayer.android.reactivesplitinstaller.app.R
 import com.branhamplayer.android.reactivesplitinstaller.InstallationStatus
 import com.branhamplayer.android.reactivesplitinstaller.ReactiveSplitInstaller
 import com.google.android.gms.common.wrappers.InstantApps

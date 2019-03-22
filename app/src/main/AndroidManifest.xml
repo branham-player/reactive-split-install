@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:dist="http://schemas.android.com/apk/distribution"
-          package="com.branhamplayer.android.app">
+          package="com.branhamplayer.android.reactivesplitinstaller.app">
 
     <dist:module
             dist:instant="true"
-            dist:onDemand="true"
             dist:title="@string/module_base">
         <dist:fusing dist:include="true"/>
     </dist:module>

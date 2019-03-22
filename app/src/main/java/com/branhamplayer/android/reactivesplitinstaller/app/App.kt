@@ -1,4 +1,4 @@
-package com.branhamplayer.android.app
+package com.branhamplayer.android.reactivesplitinstaller.app
 
 import android.app.Application
 import android.content.Context
