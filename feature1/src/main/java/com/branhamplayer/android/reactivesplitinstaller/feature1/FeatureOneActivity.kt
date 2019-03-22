@@ -1,4 +1,4 @@
-package com.branamplayer.android.reactivesplitinstaller.feature1
+package com.branhamplayer.android.reactivesplitinstaller.feature1
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity

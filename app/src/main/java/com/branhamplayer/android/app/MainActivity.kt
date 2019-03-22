@@ -1,4 +1,4 @@
-package com.branamplayer.android.app
+package com.branhamplayer.android.app
 
 import android.content.Context
 import android.content.Intent
@@ -8,13 +8,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import com.branamplayer.android.reactivesplitinstaller.InstallationStatus
-import com.branamplayer.android.reactivesplitinstaller.ReactiveSplitInstaller
+import com.branhamplayer.android.reactivesplitinstaller.InstallationStatus
+import com.branhamplayer.android.reactivesplitinstaller.ReactiveSplitInstaller
 import com.google.android.gms.common.wrappers.InstantApps
 import com.google.android.play.core.splitcompat.SplitCompat
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -62,11 +60,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
                     when (status) {
                         is InstallationStatus.RequestCompleted ->
-                            launchActivity("com.branamplayer.android.reactivesplitinstaller.feature1.FeatureOneActivity")
+                            launchActivity("com.branhamplayer.android.reactivesplitinstaller.feature1.FeatureOneActivity")
                     }
                 }, { exception ->
                     Log.e("INSTALLER_STATUS", exception.message)
                     Toast.makeText(this, "Could not load this module", Toast.LENGTH_LONG).show()
+                }, {
+                    Log.d("INSTALLER_STATUS", "Done")
                 }).also {
                     compositeDisposable.add(it)
                 }

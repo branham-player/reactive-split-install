@@ -1,4 +1,4 @@
-package com.branamplayer.android.reactivesplitinstaller
+package com.branhamplayer.android.reactivesplitinstaller
 
 sealed class InstallationStatus {
     object Canceled : InstallationStatus()

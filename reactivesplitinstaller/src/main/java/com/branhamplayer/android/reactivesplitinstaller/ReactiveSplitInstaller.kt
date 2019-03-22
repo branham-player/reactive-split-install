@@ -1,7 +1,7 @@
-package com.branamplayer.android.reactivesplitinstaller
+package com.branhamplayer.android.reactivesplitinstaller
 
 import android.app.Activity
-import com.branamplayer.android.reactivesplitinstaller.exceptions.InstallationFailedException
+import com.branhamplayer.android.reactivesplitinstaller.exceptions.InstallationFailedException
 import com.google.android.play.core.splitinstall.SplitInstallException
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
@@ -62,7 +62,11 @@ class ReactiveSplitInstaller(private val activity: Activity) {
                 }
 
                 SplitInstallSessionStatus.FAILED ->
-                    emitter.onError(InstallationFailedException(state.errorCode()))
+                    emitter.onError(
+                        InstallationFailedException(
+                            state.errorCode()
+                        )
+                    )
 
                 SplitInstallSessionStatus.INSTALLED -> {
                     emitter.onNext(
@@ -82,7 +86,9 @@ class ReactiveSplitInstaller(private val activity: Activity) {
                     emitter.onNext(InstallationStatus.Pending)
 
                 SplitInstallSessionStatus.REQUIRES_USER_CONFIRMATION -> {
-                    manager.startConfirmationDialogForResult(state, activity, ReactiveSplitInstaller.REQUEST_CODE)
+                    manager.startConfirmationDialogForResult(state, activity,
+                        REQUEST_CODE
+                    )
                     emitter.onNext(InstallationStatus.RequiresUserConfirmation)
                 }
 
@@ -95,7 +101,11 @@ class ReactiveSplitInstaller(private val activity: Activity) {
 
         manager.startInstall(request?.build())
             .addOnSuccessListener { sessionId ->
-                emitter.onNext(InstallationStatus.RequestAccepted(sessionId))
+                emitter.onNext(
+                    InstallationStatus.RequestAccepted(
+                        sessionId
+                    )
+                )
                 requestSessionId = sessionId
             }
             .addOnCompleteListener {
@@ -106,7 +116,11 @@ class ReactiveSplitInstaller(private val activity: Activity) {
             }
             .addOnFailureListener { exception ->
                 val installationException = exception as SplitInstallException
-                emitter.onError(InstallationFailedException(installationException.errorCode))
+                emitter.onError(
+                    InstallationFailedException(
+                        installationException.errorCode
+                    )
+                )
                 manager.unregisterListener(listener)
 
                 requestSessionId = null

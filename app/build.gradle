@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "com.branamplayer.android.app"
+        applicationId "com.branhmplayer.android.app"
 
         minSdkVersion 21
         targetSdkVersion 28
