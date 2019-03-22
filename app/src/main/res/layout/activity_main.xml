@@ -5,13 +5,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.branhamplayer.android.app.MainActivity">
+        tools:context=".MainActivity">
 
     <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/feature_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Load Dynamic Feature Instant 1"
+            android:text="Load Instant Dynamic Feature Module 1"
             app:layout_constraintVertical_chainStyle="spread"
             app:layout_constraintBottom_toTopOf="@+id/feature_two"
             app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
             android:id="@+id/feature_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Load Dynamic Feature Instant 2"
+            android:text="Load Instant Dynamic Feature Module 2"
             app:layout_constraintVertical_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/unavailable_feature"
@@ -33,7 +33,7 @@
             android:id="@+id/unavailable_feature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Load Non-Existing Feature"
+            android:text="Load Non-Existing Feature Module"
             app:layout_constraintVertical_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -4,7 +4,8 @@
     <!-- region Modules -->
 
     <string name="module_base">Base Module</string>
-    <string name="module_feature1">Instant Dynamic Feature 1</string>
+    <string name="module_feature1">Instant Dynamic Feature Module 1</string>
+    <string name="module_feature2">Instant Dynamic Feature Module 2</string>
 
     <!-- endregion -->
 </resources>

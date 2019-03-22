@@ -40,6 +40,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button1 = findViewById(R.id.feature_one)
         button1?.setOnClickListener(this)
 
+        button2 = findViewById(R.id.feature_two)
+        button2?.setOnClickListener(this)
+
         button3 = findViewById(R.id.unavailable_feature)
         button3?.setOnClickListener(this)
     }
@@ -61,6 +64,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     when (status) {
                         is InstallationStatus.RequestCompleted ->
                             launchActivity("com.branhamplayer.android.reactivesplitinstaller.feature1.FeatureOneActivity")
+                    }
+                }, { exception ->
+                    Log.e("INSTALLER_STATUS", exception.message)
+                    Toast.makeText(this, "Could not load this module", Toast.LENGTH_LONG).show()
+                }, {
+                    Log.d("INSTALLER_STATUS", "Done")
+                }).also {
+                    compositeDisposable.add(it)
+                }
+        }
+
+        if (view == button2) {
+            val moduleName = getString(R.string.module_feature2)
+
+            installer.addModule(moduleName)
+                .install()
+                .subscribe({ status ->
+                    Log.d("INSTALLER_STATUS", status::class.java.simpleName)
+
+                    when (status) {
+                        is InstallationStatus.RequestCompleted ->
+                            launchActivity("com.branhamplayer.android.reactivesplitinstaller.feature2.FeatureTwoActivity")
                     }
                 }, { exception ->
                     Log.e("INSTALLER_STATUS", exception.message)
