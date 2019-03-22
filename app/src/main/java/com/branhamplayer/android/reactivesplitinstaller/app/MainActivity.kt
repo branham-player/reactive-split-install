@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import com.branhamplayer.android.reactivesplitinstaller.app.R
 import com.branhamplayer.android.reactivesplitinstaller.InstallationStatus
 import com.branhamplayer.android.reactivesplitinstaller.ReactiveSplitInstaller
 import com.google.android.gms.common.wrappers.InstantApps
@@ -61,6 +60,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 .install()
                 .subscribe({ status ->
                     Log.d("INSTALLER_STATUS", status::class.java.simpleName)
+                    Toast.makeText(this, status::class.java.simpleName, Toast.LENGTH_LONG).show()
 
                     when (status) {
                         is InstallationStatus.RequestCompleted ->
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }, { exception ->
                     Log.e("INSTALLER_STATUS", exception.message)
-                    Toast.makeText(this, "Could not load this module", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Error code: ${exception.message}", Toast.LENGTH_LONG).show()
                 }, {
                     Log.d("INSTALLER_STATUS", "Done")
                 }).also {
@@ -83,14 +83,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 .install()
                 .subscribe({ status ->
                     Log.d("INSTALLER_STATUS", status::class.java.simpleName)
+                    Toast.makeText(this, status::class.java.simpleName, Toast.LENGTH_LONG).show()
 
                     when (status) {
                         is InstallationStatus.RequestCompleted ->
                             launchActivity("com.branhamplayer.android.reactivesplitinstaller.feature2.FeatureTwoActivity")
                     }
                 }, { exception ->
-                    Log.e("INSTALLER_STATUS", exception.message)
-                    Toast.makeText(this, "Could not load this module", Toast.LENGTH_LONG).show()
+                    Log.e("INSTALLER_STATUS", "Error code: ${exception.message}")
+                    Toast.makeText(this, "Error code: ${exception.message}", Toast.LENGTH_LONG).show()
                 }, {
                     Log.d("INSTALLER_STATUS", "Done")
                 }).also {
@@ -103,9 +104,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 .install()
                 .subscribe({ status ->
                     Log.d("INSTALLER_STATUS", status::class.java.simpleName)
+                    Toast.makeText(this, status::class.java.simpleName, Toast.LENGTH_LONG).show()
                 }, { exception ->
-                    Log.e("INSTALLER_STATUS", exception.message)
-                    Toast.makeText(this, "Could not load this module", Toast.LENGTH_LONG).show()
+                    Log.e("INSTALLER_STATUS", "Error code: ${exception.message}")
+                    Toast.makeText(this, "Error code: ${exception.message}", Toast.LENGTH_LONG).show()
                 }).also {
                     compositeDisposable.add(it)
                 }
