@@ -26,7 +26,6 @@ sealed class InstallationStatus {
         val taskSessionId: Int
     ) : InstallationStatus()
 
-    object RequestCompleted : InstallationStatus()
     object RequiresUserConfirmation : InstallationStatus()
     object Unknown : InstallationStatus()
 }

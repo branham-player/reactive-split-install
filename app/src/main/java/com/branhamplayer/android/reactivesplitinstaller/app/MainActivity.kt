@@ -5,30 +5,29 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatTextView
 import com.branhamplayer.android.reactivesplitinstaller.InstallationStatus
 import com.branhamplayer.android.reactivesplitinstaller.ReactiveSplitInstaller
-import com.google.android.gms.common.wrappers.InstantApps
 import com.google.android.play.core.splitcompat.SplitCompat
 import io.reactivex.disposables.CompositeDisposable
+import android.text.method.ScrollingMovementMethod
+
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private var button1: AppCompatButton? = null
     private var button2: AppCompatButton? = null
     private var button3: AppCompatButton? = null
+    private var logView: AppCompatTextView? = null
 
     private val compositeDisposable = CompositeDisposable()
     private lateinit var installer: ReactiveSplitInstaller
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(newBase)
-
-        if (!InstantApps.isInstantApp(this)) {
-            SplitCompat.install(this)
-        }
+        SplitCompat.install(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +44,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         button3 = findViewById(R.id.unavailable_feature)
         button3?.setOnClickListener(this)
+
+        logView = findViewById(R.id.log)
+        logView?.movementMethod = ScrollingMovementMethod()
+
     }
 
     override fun onDestroy() {
@@ -53,61 +56,66 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        if (view == button1) {
-            val moduleName = getString(R.string.module_feature1)
 
+        val moduleName = when (view) {
+            button1 -> getString(R.string.module_feature1)
+            button2 -> getString(R.string.module_feature2)
+            else -> "Does not exist"
+        }
+
+        if (view == button1) {
             installer.addModule(moduleName)
                 .install()
                 .subscribe({ status ->
                     Log.d("INSTALLER_STATUS", status::class.java.simpleName)
-                    Toast.makeText(this, status::class.java.simpleName, Toast.LENGTH_LONG).show()
+                    logView?.appendLine(status::class.java.simpleName)
 
                     when (status) {
-                        is InstallationStatus.RequestCompleted ->
+                        is InstallationStatus.Installed ->
                             launchActivity("com.branhamplayer.android.reactivesplitinstaller.feature1.FeatureOneActivity")
                     }
                 }, { exception ->
                     Log.e("INSTALLER_STATUS", exception.message)
-                    Toast.makeText(this, "Error code: ${exception.message}", Toast.LENGTH_LONG).show()
+                    logView?.appendLine("Error code: ${exception.message}")
                 }, {
                     Log.d("INSTALLER_STATUS", "Done")
+                    logView?.appendLine("Done")
                 }).also {
                     compositeDisposable.add(it)
                 }
         }
 
         if (view == button2) {
-            val moduleName = getString(R.string.module_feature2)
-
             installer.addModule(moduleName)
                 .install()
                 .subscribe({ status ->
                     Log.d("INSTALLER_STATUS", status::class.java.simpleName)
-                    Toast.makeText(this, status::class.java.simpleName, Toast.LENGTH_LONG).show()
+                    logView?.appendLine(status::class.java.simpleName)
 
                     when (status) {
-                        is InstallationStatus.RequestCompleted ->
+                        is InstallationStatus.Installed ->
                             launchActivity("com.branhamplayer.android.reactivesplitinstaller.feature2.FeatureTwoActivity")
                     }
                 }, { exception ->
                     Log.e("INSTALLER_STATUS", "Error code: ${exception.message}")
-                    Toast.makeText(this, "Error code: ${exception.message}", Toast.LENGTH_LONG).show()
+                    logView?.appendLine("Error code: ${exception.message}")
                 }, {
                     Log.d("INSTALLER_STATUS", "Done")
+                    logView?.appendLine("Done")
                 }).also {
                     compositeDisposable.add(it)
                 }
         }
 
         if (view == button3) {
-            installer.addModule("Does not exist")
+            installer.addModule(moduleName)
                 .install()
                 .subscribe({ status ->
                     Log.d("INSTALLER_STATUS", status::class.java.simpleName)
-                    Toast.makeText(this, status::class.java.simpleName, Toast.LENGTH_LONG).show()
+                    logView?.appendLine(status::class.java.simpleName)
                 }, { exception ->
                     Log.e("INSTALLER_STATUS", "Error code: ${exception.message}")
-                    Toast.makeText(this, "Error code: ${exception.message}", Toast.LENGTH_LONG).show()
+                    logView?.appendLine("Error code: ${exception.message}")
                 }).also {
                     compositeDisposable.add(it)
                 }
@@ -119,5 +127,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         intent.setClassName(this, className)
 
         startActivity(intent)
+    }
+
+    private fun AppCompatTextView.appendLine(text: String) {
+        this.append("$text\n")
     }
 }
