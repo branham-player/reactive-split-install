@@ -55,6 +55,8 @@ class ReactiveSplitInstaller(private val activity: Activity) {
         }
 
         val listener = SplitInstallStateUpdatedListener { state ->
+            if (emitter.isCancelled) return@SplitInstallStateUpdatedListener
+
             when (state.status()) {
                 SplitInstallSessionStatus.CANCELED -> {
                     emitter.onNext(InstallationStatus.Canceled)

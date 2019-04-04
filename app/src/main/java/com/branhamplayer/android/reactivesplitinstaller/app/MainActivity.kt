@@ -2,6 +2,7 @@ package com.branhamplayer.android.reactivesplitinstaller.app
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,6 +14,7 @@ import com.branhamplayer.android.reactivesplitinstaller.ReactiveSplitInstaller
 import com.google.android.play.core.splitcompat.SplitCompat
 import io.reactivex.disposables.CompositeDisposable
 import android.text.method.ScrollingMovementMethod
+import com.google.android.play.core.splitinstall.SplitInstallHelper
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -71,8 +73,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     logView?.appendLine(status::class.java.simpleName)
 
                     when (status) {
-                        is InstallationStatus.Installed ->
+                        is InstallationStatus.Installed -> {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                SplitInstallHelper.updateAppInfo(this@MainActivity)
+                            }
+
                             launchActivity("com.branhamplayer.android.reactivesplitinstaller.feature1.FeatureOneActivity")
+                        }
                     }
                 }, { exception ->
                     Log.e("INSTALLER_STATUS", exception.message)
@@ -93,8 +100,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     logView?.appendLine(status::class.java.simpleName)
 
                     when (status) {
-                        is InstallationStatus.Installed ->
+                        is InstallationStatus.Installed -> {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                SplitInstallHelper.updateAppInfo(this@MainActivity)
+                            }
+
                             launchActivity("com.branhamplayer.android.reactivesplitinstaller.feature2.FeatureTwoActivity")
+                        }
                     }
                 }, { exception ->
                     Log.e("INSTALLER_STATUS", "Error code: ${exception.message}")
