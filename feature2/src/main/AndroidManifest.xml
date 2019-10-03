@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:dist="http://schemas.android.com/apk/distribution"
-          package="com.branhamplayer.android.reactivesplitinstaller.feature2">
+<manifest
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:dist="http://schemas.android.com/apk/distribution"
+        package="com.branhamplayer.android.reactivesplitinstaller.feature2">
 
     <dist:module
-            dist:instant="true"
-            dist:onDemand="false"
+            dist:instant="false"
+            dist:onDemand="true"
             dist:title="@string/module_feature2">
         <dist:fusing dist:include="true"/>
     </dist:module>

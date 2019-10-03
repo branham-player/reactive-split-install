@@ -5,8 +5,8 @@
         package="com.branhamplayer.android.reactivesplitinstaller.feature1">
 
     <dist:module
-            dist:instant="true"
-            dist:onDemand="false"
+            dist:instant="false"
+            dist:onDemand="true"
             dist:title="@string/module_feature1">
         <dist:fusing dist:include="true"/>
     </dist:module>
